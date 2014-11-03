@@ -4,12 +4,42 @@
  * @author Mehdi Maujood
  */
 jstructs.LinkedList = function () {
+    /**
+     * Pointer to the head (first element) of the linked list.
+     * @member jstructs.LinkedList#_head
+     * @access protected
+     */
     this._head = null;
+
+    /**
+     * Pointer to the tail (last element) of the linked list.
+     * @member jstructs.LinkedList#_tail
+     * @access protected
+     */
     this._tail = null;
+
+    /**
+     * Number of elements in the linked list. Objects extending the linked list should also maintain this property.
+     * @member jstructs.LinkedList#_size
+     * @access protected
+     */
     this._size = 0;
 }
 
+/**
+ * Creates a new node with provided data and null next and previous pointers
+ * @function jstructs.LinkedList#_newNode
+ * @access protected
+ * @param data The data this node will contain.
+ * @returns {jstructs.LinkedList.LinkedListNode} A linked list node containing the data with null next and prev pointers.
+ */
 jstructs.LinkedList.prototype._newNode = function (data) {
+    /**
+     * @typedef {Object} jstructs.LinkedList.LinkedListNode
+     * @property next Pointer to the next node.
+     * @property prev Pointer to the previous node.
+     * @property data Data contained in the node.
+     */
     return {
         next: null,
         prev: null,
@@ -17,6 +47,11 @@ jstructs.LinkedList.prototype._newNode = function (data) {
     };
 }
 
+/**
+ * Removes the provided node from the linked list.
+ * @function jstructs.LinkedList#_removeFromList
+ * @access protected
+ */
 jstructs.LinkedList.prototype._removeFromList = function (node) {
     if (node.prev !== null)
         node.prev.next = node.next;

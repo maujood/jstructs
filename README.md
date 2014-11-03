@@ -21,7 +21,8 @@ jStructs is a collection of data structures implemented in javascript. Implement
 For an example, assume that we want to extend the linked list to maintain a count of the number of elements that were added to the head or tail of the linked list. This count is not decremented if items are removed.
 
 	var ChildList = jstructs.LinkedList.extend({
-		//Private variables to maintain the counts. Since all properties in javascript are public, we use underscore as a prefix to identify private variables.
+		//Private variables to maintain the counts. Since all properties in javascript 
+		//are public, we use underscore as a prefix to identify private variables.
 		_headCount: 0,
 		_tailCount: 0,
 
