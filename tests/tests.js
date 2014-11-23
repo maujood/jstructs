@@ -1,6 +1,3 @@
-//namespace for testing framework.
-jstructstest = {};
-
 QUnit.module("Linked List");
 
 QUnit.test("Create linked list", function (assert) {
@@ -203,4 +200,55 @@ QUnit.test("Extends", function (assert) {
     assert.equal(myList.getSize(), 4, 'Child object augments size properly');
     myList.changeSize();
     assert.equal(myList.getSize(), 10, 'Simple child function worked properly');
+});
+
+QUnit.module("Hashtable");
+
+QUnit.test("Hashtable with strings: put, get, delete, count", function (assert) {
+    var hashtable = new jstructs.Hashtable();
+    assert.equal(hashtable.count(), 0, 'Count initially 0');
+    hashtable.put('value1', 10);
+    hashtable.put('value2', 20);
+    assert.equal(hashtable.count(), 2, 'Values inserted correctly');
+    assert.equal(hashtable.get('value1'), 10, 'Values retrieved properly');
+    hashtable.remove('value2', 20);
+    assert.equal(hashtable.get('value2'), null, 'Value deleted properly');
+    assert.equal(hashtable.count(), 1, 'Count maintained properly');
+});
+
+QUnit.test("Key containment checked properly", function (assert) {
+    var hashtable = new jstructs.Hashtable();
+    hashtable.put('value1', 10);
+    assert.ok(hashtable.containsKey('value1'), 'Contains key works properly');
+    assert.ok(!hashtable.containsKey('constructor'), 'Contains key works properly');
+});
+
+QUnit.test("Special values work as keys", function (assert) {
+    var hashtable = new jstructs.Hashtable();
+    hashtable.put('hasOwnProperty', 10);
+    //hashtable.put('__proto__', 20);
+    hashtable.put('constructor', 10);
+    assert.equal(hashtable.count(), 2, 'special values inserted correctly');
+    assert.equal(hashtable.get('hasOwnProperty'), 10, 'hasOwnProperty works as a key');
+    //assert.equal(hashtable.get('__proto__'), 20, '__proto__ works as a key');
+    assert.equal(hashtable.get('constructor'), 10, 'constructor works as a key');
+    hashtable.remove('hasOwnProperty');
+    assert.ok(!hashtable.containsKey('hasOwnProperty'), 'hasOwnProperty removed correctly');
+    assert.equal(hashtable.count(), 1, 'Count maintained properly');
+});
+
+QUnit.test("Objects work as keys", function (assert) {
+    var hashtable = new jstructs.Hashtable();
+    var obj1 = { key: 'value' };
+    var obj2 = { key: 'value2' };
+    var obj3 = { key2: 'value' };
+    var obj4 = { key: 'value' };
+    hashtable.put(obj1, 10);
+    hashtable.put(obj2, 20);
+    hashtable.put(obj3, 30);
+    hashtable.put(obj4, 40);
+    assert.equal(hashtable.count(), 3, 'Key/value pairs saved properly');
+    assert.equal(hashtable.get(obj1), 40, 'First value retrieved properly');
+    assert.equal(hashtable.get(obj2), 20, 'Second value retrieved properly');
+    assert.equal(hashtable.get(obj3), 30, 'Third value retrieved properly');
 });
